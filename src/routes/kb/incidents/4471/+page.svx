@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · dates parse mm/dd in eu locales'
 owner: support desk
-status: split
+status: closed
 reviewed: 2026-11-11
 ---
 
@@ -19,9 +19,10 @@ Since April, people have told us their bookings land on the wrong day: a month f
 tenants write the day first. That is one cause. The same reports also hold a booking-v3 form hint
 problem and a few one-day shifts.
 
-<Callout kind="warn">
-Split: [three problems, each with its own ticket](/kb/incidents/4471-three-problems). The queued parser
-fix closes only the parser problem.
+<Callout>
+Engineering closed this on 5 October: parser <strong>fixed</strong> (<code>fix(dates): parse dd/mm for eu locales</code>), booking-v3
+hint <strong>won't fix</strong> (the form is retired). The reports hold <a href="/kb/incidents/4471-three-problems">three problems, each with its own ticket</a>.
+The one-day shift is still open.
 </Callout>
 
 ## What was merged
