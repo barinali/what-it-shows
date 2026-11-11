@@ -1,0 +1,39 @@
+---
+layout: runbook
+title: '0002 · Duplicates share a cause'
+owner: barinali
+status: accepted
+reviewed: 2026-11-11
+signature: v1.eyJzdWIiOiIzOTc4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ0MzMxNzUsImV4cCI6MTc5NDUxOTU3NX0.SlJWSIXnT5BrmNE0iPAjvnhpGmKroWzVLY7XW8g4Y2U
+---
+
+<script>
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  const signature = metadata.signature;
+</script>
+
+**Date:** 11 November 2026 · **Deciders:** support desk · **Replaces:** [0001](/kb/decisions/0001-dedupe-by-subject)
+
+## Context
+
+Decision 0001 merged reports on the subject line alone. Ticket #4471 shows what that costs: 412 reports were
+merged into one ticket, and they describe three different problems. The same subjects ("Wrong day on the
+invite", "Month and day swapped?") appear in all of them. Intake's browser guess was wrong too. The split is on
+[the #4471 page](/kb/incidents/4471-three-problems).
+
+## Decision
+
+Two reports are the same issue when they have the same cause. The cause comes from the tenant: where it writes
+dates, and which booking form it runs (`causeOf` in `src/lib/kb/causes.ts`). Subject lines and intake tags do not
+decide a merge.
+
+Reports the desk reads differently from their tenant's cause (the one-day shifts) are counted where they are
+filed and listed under their own problem.
+
+## Consequences
+
+- Triage needs the tenant, not only the subject. It is slower than a subject match, but each ticket is one problem.
+- Engineering gets one ticket per cause, each with its own count.
+- A fix for one cause no longer closes reports that belong to another.
+
+<RenderStamp {signature} />
