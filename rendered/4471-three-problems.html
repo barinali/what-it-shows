@@ -8,7 +8,9 @@
 
 aside.svelte-17bri61{border-left:4px solid var(--accent);padding:.5rem 1rem;margin:1rem 0;background:var(--note-bg)}aside.warn.svelte-17bri61{border-color:var(--warn);background:var(--warn-bg)}
 
-.sum.svelte-h3x27m{font-size:1.05rem}.tags.svelte-h3x27m{color:var(--muted);font-size:.85em}.stamp.svelte-1280m42{margin:2rem 0 0;font:.85rem var(--mono);color:var(--muted)}.stamp.svelte-1280m42 b:where(.svelte-1280m42){color:var(--accent);letter-spacing:.04em}.missing.svelte-1280m42{color:var(--warn)}
+.stamp.svelte-1280m42{margin:2rem 0 0;font:.85rem var(--mono);color:var(--muted)}.stamp.svelte-1280m42 b:where(.svelte-1280m42){color:var(--accent);letter-spacing:.04em}.missing.svelte-1280m42{color:var(--warn)}
+
+.sum.svelte-h3x27m{font-size:1.05rem}.tags.svelte-h3x27m{color:var(--muted);font-size:.85em}
 </style>
 </head>
   <body>
@@ -23,7 +25,7 @@ it counts by tenant (the table says how many).</p> <p><strong>Booking-v3 hint.</
 field. Their people type what the hint says, and the form reads it the tenant’s way. It is the same flip with a
 different cause, and it only happens through the form channel. Fixing the parser does not touch it.</p> <p><strong>One day off.</strong> The desk’s own notes list these reports. Their text has no flipped month: a Tuesday shows as a
 Monday, one client in Lisbon and another in Toronto got different days for the same meeting. That points to
-time zones at a day boundary, not to date order. It needs an engineer who owns scheduling and time zones.</p> <h2>Why they were merged</h2> <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on the subject line alone. Subjects such as
+time zones at a day boundary, not to date order. It needs an engineer who owns scheduling and time zones.</p> <h2>Why they were merged</h2> <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merged on the subject line alone, and <a href="/kb/decisions/0002-dedupe-by-cause">decision 0002</a> replaces it with the cause. Subjects such as
 “Wrong day on the invite” and “Month and day swapped?” appear in all three problems, so the match could not
 tell them apart. Intake’s tag was a guess from the reporter’s browser, and it is wrong for part of the queue
 (see the table). The tenant tells the cause, not the subject and not the browser.</p> <h2>Tickets</h2> <table><thead><tr><th>ticket</th><th>problem</th><th>closed as</th></tr></thead><tbody><tr><td><a href="https://github.com/barinali/what-it-shows/issues/1" rel="nofollow">#1</a></td><td>parser reads month first</td><td>completed: triaged, engineering owns the fix</td></tr><tr><td><a href="https://github.com/barinali/what-it-shows/issues/2" rel="nofollow">#2</a></td><td>booking-v3 hint</td><td>not planned: the form team’s decision</td></tr><tr><td><a href="https://github.com/barinali/what-it-shows/issues/3" rel="nofollow">#3</a></td><td>one day off</td><td>duplicate of #1: the desk counts these reports under the parser ticket</td></tr></tbody></table> <h2>What to do</h2> <ul><li>Do not merge new reports back by subject. Check the tenant first.</li> <li>Ship the parser fix and check the table again: the <code>hint</code> and <code>day-shift</code> rows should not move.</li> <li>Take tickets for the hint and the one-day shift to the teams that own the booking form and scheduling.</li></ul> <!--[0--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-6GD5-P0CX</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!--]--><!----><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
