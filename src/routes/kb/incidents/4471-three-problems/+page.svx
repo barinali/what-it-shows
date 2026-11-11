@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · three problems, not one'
 owner: barinali
-status: open
+status: closed
 reviewed: 2026-11-11
 signature: v1.eyJzdWIiOiIzOTc4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ0MzMxNzUsImV4cCI6MTc5NDUxOTU3NX0.SlJWSIXnT5BrmNE0iPAjvnhpGmKroWzVLY7XW8g4Y2U
 ---
@@ -17,8 +17,9 @@ signature: v1.eyJzdWIiOiIzOTc4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 Ticket [#4471](/kb/incidents/4471) is marked known, with one fix queued. Its reports describe more
 than one problem. People see a wrong day in all of them. The cause is different, so the fix is too.
 
-<Callout kind="warn">
-The queued parser fix closes only the first row of the table below. The other problems stay open.
+<Callout>
+The desk's triage of #4471 is closed: each problem has a ticket and each ticket is closed. The parser fix
+itself belongs to engineering and has not shipped.
 </Callout>
 
 ## What #4471 holds
@@ -49,9 +50,17 @@ time zones at a day boundary, not to date order. It needs an engineer who owns s
 tell them apart. Intake's tag was a guess from the reporter's browser, and it is wrong for part of the queue
 (see the table). The tenant tells the cause, not the subject and not the browser.
 
+## Tickets
+
+| ticket | problem | closed as |
+| --- | --- | --- |
+| [#1](https://github.com/barinali/what-it-shows/issues/1) | parser reads month first | completed: triaged, engineering owns the fix |
+| [#2](https://github.com/barinali/what-it-shows/issues/2) | booking-v3 hint | not planned: the form team's decision |
+| [#3](https://github.com/barinali/what-it-shows/issues/3) | one day off | duplicate of #1: the desk counts these reports under the parser ticket |
+
 ## What to do
 
-- Keep the three tickets apart. Do not merge them back by subject.
+- Do not merge new reports back by subject. Check the tenant first.
 - Ship the parser fix and check the table again: the `hint` and `day-shift` rows should not move.
 - Take tickets for the hint and the one-day shift to the teams that own the booking form and scheduling.
 
