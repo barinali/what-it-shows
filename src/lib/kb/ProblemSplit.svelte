@@ -8,7 +8,6 @@
   let { ticket }: { ticket: number } = $props();
 
   const split = $derived(splitTicket(reports as Report[], ticket, tenantOf, notes.oneDayMove));
-  const misTagged = $derived(split.groups.reduce((n, g) => n + g.misTagged, 0));
   const tags = (g: { taggedAs: Record<string, number> }) =>
     Object.entries(g.taggedAs)
       .sort((a, b) => b[1] - a[1])
@@ -24,26 +23,31 @@
 
 <p class="sum">
   <strong>{split.merged.length}</strong> reports in #{ticket} ({split.rows} rows exported,
-  {split.duplicates} of them a report that came twice) ·
-  <strong>{split.groups.length}</strong> problems · intake tagged <strong>{misTagged}</strong> of them wrong
+  {split.duplicates} of them a report that came twice) · <strong>{split.groups.length}</strong> problems
 </p>
 
 <table>
   <thead>
-    <tr><th>problem</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th></tr>
+    <tr><th>problem</th><th>reports</th><th>tagged as</th><th>wrong tag</th><th>tenants</th><th>seen</th></tr>
   </thead>
   <tbody>
     {#each split.groups as g (g.problem)}
       <tr>
         <td><code>{g.problem}</code> {label[g.problem]}</td>
-        <td>{g.reports.length}</td>
+        <td>{g.reports.length}{#if g.alsoDayShift} <span class="tags">({g.alsoDayShift} also in day-shift)</span>{/if}</td>
         <td class="tags">{tags(g)}</td>
+        <td>{g.misTagged}</td>
         <td title={g.tenants.join(', ')}>{g.tenants.length}</td>
         <td>{g.firstSeen} → {g.lastSeen}</td>
       </tr>
     {/each}
   </tbody>
 </table>
+
+<p class="tags">
+  The desk counts a report where its tenant files it. The day-shift reports are filed under their tenant's
+  cause as well, so they count in two rows: the rows add up to more than {split.merged.length}.
+</p>
 
 <style>
   .sum { font-size: 1.05rem; }

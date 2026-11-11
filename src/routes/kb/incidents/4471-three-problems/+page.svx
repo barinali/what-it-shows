@@ -31,7 +31,8 @@ with its report count and report ids.
 ## The three problems
 
 **Parser reads month first.** The shared parser reads every date month first. Tenants that write the day
-first get flipped dates: 7 April comes out as 4 July. This is the bug `#4471` was opened for.
+first get flipped dates: 7 April comes out as 4 July. This is the bug `#4471` was opened for. The desk files a few reports of the third problem here too, because
+it counts by tenant (the table says how many).
 
 **Booking-v3 hint.** Tenants on `booking-v3` write the day first, but the form prints MM/DD/YYYY under the date
 field. Their people type what the hint says, and the form reads it the tenant's way. It is the same flip with a
