@@ -45,7 +45,7 @@ time zones at a day boundary, not to date order. It needs an engineer who owns s
 
 ## Why they were merged
 
-[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line alone. Subjects such as
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merged on the subject line alone, and [decision 0002](/kb/decisions/0002-dedupe-by-cause) replaces it with the cause. Subjects such as
 "Wrong day on the invite" and "Month and day swapped?" appear in all three problems, so the match could not
 tell them apart. Intake's tag was a guess from the reporter's browser, and it is wrong for part of the queue
 (see the table). The tenant tells the cause, not the subject and not the browser.
