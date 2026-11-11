@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · three problems, not one'
 owner: barinali
-status: closed
+status: open
 reviewed: 2026-11-11
 signature: v1.eyJzdWIiOiIzOTc4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ0MzMxNzUsImV4cCI6MTc5NDUxOTU3NX0.SlJWSIXnT5BrmNE0iPAjvnhpGmKroWzVLY7XW8g4Y2U
 ---
@@ -14,12 +14,13 @@ signature: v1.eyJzdWIiOiIzOTc4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
   const signature = metadata.signature;
 </script>
 
-Ticket [#4471](/kb/incidents/4471) is marked known, with one fix queued. Its reports describe more
+Ticket [#4471](/kb/incidents/4471) was marked known, with one fix queued. Its reports describe more
 than one problem. People see a wrong day in all of them. The cause is different, so the fix is too.
 
 <Callout>
-The desk's triage of #4471 is closed: each problem has a ticket and each ticket is closed. The parser fix
-itself belongs to engineering and has not shipped.
+Engineering closed #4471 on 5 October. The parser is <strong>fixed</strong> (<code>fix(dates): parse dd/mm for eu locales</code>).
+The booking-v3 hint is <strong>won't fix</strong>, because the booking-v3 form is retired. Nothing was said about the
+one-day shift: it is not fixed and its ticket stays open.
 </Callout>
 
 ## What #4471 holds
@@ -37,11 +38,11 @@ it counts by tenant (the table says how many).
 
 **Booking-v3 hint.** Tenants on `booking-v3` write the day first, but the form prints MM/DD/YYYY under the date
 field. Their people type what the hint says, and the form reads it the tenant's way. It is the same flip with a
-different cause, and it only happens through the form channel. Fixing the parser does not touch it.
+different cause, and it only happens through the form channel. Fixing the parser did not touch it. Engineering will not fix it: the booking-v3 form is retired.
 
 **One day off.** The desk's own notes list these reports. Their text has no flipped month: a Tuesday shows as a
 Monday, one client in Lisbon and another in Toronto got different days for the same meeting. That points to
-time zones at a day boundary, not to date order. It needs an engineer who owns scheduling and time zones.
+time zones at a day boundary, not to date order. The engineering update names no fix for it. It needs an engineer who owns scheduling and time zones.
 
 ## Why they were merged
 
@@ -52,16 +53,16 @@ tell them apart. Intake's tag was a guess from the reporter's browser, and it is
 
 ## Tickets
 
-| ticket | problem | closed as |
+| ticket | problem | state |
 | --- | --- | --- |
-| [#1](https://github.com/barinali/what-it-shows/issues/1) | parser reads month first | completed: triaged, engineering owns the fix |
-| [#2](https://github.com/barinali/what-it-shows/issues/2) | booking-v3 hint | not planned: the form team's decision |
-| [#3](https://github.com/barinali/what-it-shows/issues/3) | one day off | duplicate of #1: the desk counts these reports under the parser ticket |
+| [#1](https://github.com/barinali/what-it-shows/issues/1) | parser reads month first | closed, fixed by engineering: `fix(dates): parse dd/mm for eu locales` |
+| [#2](https://github.com/barinali/what-it-shows/issues/2) | booking-v3 hint | closed, won't fix: booking-v3 form retired |
+| [#3](https://github.com/barinali/what-it-shows/issues/3) | one day off | open: not covered by the fix or by the retirement |
 
 ## What to do
 
 - Do not merge new reports back by subject. Check the tenant first.
-- Ship the parser fix and check the table again: the `hint` and `day-shift` rows should not move.
-- Take tickets for the hint and the one-day shift to the teams that own the booking form and scheduling.
+- Check the table again after the parser fix: the `parser` row should stop growing for new reports.
+- Take the one-day shift to the engineers who own scheduling and time zones. It is the only problem still open.
 
 <RenderStamp {signature} />
