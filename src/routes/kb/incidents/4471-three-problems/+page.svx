@@ -1,0 +1,57 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: barinali
+status: open
+reviewed: 2026-11-11
+signature: v1.eyJzdWIiOiIzOTc4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ0MzMxNzUsImV4cCI6MTc5NDUxOTU3NX0.SlJWSIXnT5BrmNE0iPAjvnhpGmKroWzVLY7XW8g4Y2U
+---
+
+<script>
+  import ProblemSplit from '#lib/kb/ProblemSplit.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  const signature = metadata.signature;
+</script>
+
+Ticket [#4471](/kb/incidents/4471) is marked known, with one fix queued. Its reports describe more
+than one problem. People see a wrong day in all of them. The cause is different, so the fix is too.
+
+<Callout kind="warn">
+The queued parser fix closes only the first row of the table below. The other problems stay open.
+</Callout>
+
+## What #4471 holds
+
+<ProblemSplit ticket={4471} />
+
+Each problem has its own ticket in [barinali/what-it-shows](https://github.com/barinali/what-it-shows/issues),
+with its report count and report ids.
+
+## The three problems
+
+**Parser reads month first.** The shared parser reads every date month first. Tenants that write the day
+first get flipped dates: 7 April comes out as 4 July. This is the bug `#4471` was opened for.
+
+**Booking-v3 hint.** Tenants on `booking-v3` write the day first, but the form prints MM/DD/YYYY under the date
+field. Their people type what the hint says, and the form reads it the tenant's way. It is the same flip with a
+different cause, and it only happens through the form channel. Fixing the parser does not touch it.
+
+**One day off.** The desk's own notes list these reports. Their text has no flipped month: a Tuesday shows as a
+Monday, one client in Lisbon and another in Toronto got different days for the same meeting. That points to
+time zones at a day boundary, not to date order. It needs an engineer who owns scheduling and time zones.
+
+## Why they were merged
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line alone. Subjects such as
+"Wrong day on the invite" and "Month and day swapped?" appear in all three problems, so the match could not
+tell them apart. Intake's tag was a guess from the reporter's browser, and it is wrong for part of the queue
+(see the table). The tenant tells the cause, not the subject and not the browser.
+
+## What to do
+
+- Keep the three tickets apart. Do not merge them back by subject.
+- Ship the parser fix and check the table again: the `hint` and `day-shift` rows should not move.
+- Take tickets for the hint and the one-day shift to the teams that own the booking form and scheduling.
+
+<RenderStamp {signature} />
