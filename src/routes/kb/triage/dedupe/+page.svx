@@ -3,7 +3,7 @@ layout: runbook
 title: 'Triage: duplicate reports'
 owner: support desk
 status: accepted
-reviewed: 2024-06-11
+reviewed: 2026-11-11
 ---
 
 <script>
@@ -11,21 +11,22 @@ reviewed: 2024-06-11
   import Callout from '#lib/kb/Callout.svelte';
 </script>
 
-A busy morning brings hundreds of reports about the same thing. We keep one ticket per issue
-and merge every duplicate into it, so engineering sees one thread with a count.
+A busy morning brings hundreds of reports about the same thing. We keep one ticket per problem and merge
+reports that share a cause, so engineering sees one thread with a count.
 
 ## The rule
 
-A report is a duplicate when its **subject line matches** the subject of an open ticket
-([decision 0001](/kb/decisions/0001-dedupe-by-subject)):
+A report is a duplicate when its **cause** matches the cause of an open ticket
+([decision 0002](/kb/decisions/0002-dedupe-by-cause), which replaces
+[decision 0001](/kb/decisions/0001-dedupe-by-subject)):
 
-1. lowercase the subject and strip punctuation;
-2. look for an open ticket with the same subject;
-3. found one: merge the report into it. None: open a new ticket.
+1. look up the report's tenant: its locale and its booking form;
+2. work out the cause from them, not from the subject line or the intake tag;
+3. look for an open ticket with the same cause and merge into it. None: open a new ticket.
 
-<Callout>
-Matching on subject is fast and needs no reading. During an incident that matters more than
-anything else.
+<Callout kind="warn">
+A matching subject is not enough. In #4471 the same subjects covered three different problems.
+See [what it holds](/kb/incidents/4471-three-problems).
 </Callout>
 
 ## Try it
@@ -34,4 +35,5 @@ anything else.
 
 ## When you are unsure
 
-Merge. Splitting a ticket later is cheaper than two engineers chasing the same bug.
+Keep the reports apart and read the body. A ticket you merge wrongly hides a problem, and splitting it later
+costs more than a second ticket.
